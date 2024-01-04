@@ -18,14 +18,7 @@ debug_circle.Name = 'debug_circle'
 local parried = false
 
 
-local runservice_loop = RunService.Heartbeat:Connect(function()
-    if not modules.main.alive(LocalPlayer) then
-        runservice_loop:Disconnect()
-        runservice_loop = nil
-    
-        debug_circle:Destroy()
-    end
-
+RunService.Heartbeat:Connect(function()
     local ball = modules.blade_ball.get_ball()
 
     if not ball then
