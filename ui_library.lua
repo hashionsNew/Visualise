@@ -17,7 +17,7 @@ function library.create()
         name = name or 'Tab'
 
         local tab = game:GetObjects('rbxassetid://15868301328')[1]
-        tab.name.TextLabel = name
+        tab.name.Text = name
         tab.Parent = main.container.hold.tabs
 
         local left_section = game:GetObjects('rbxassetid://15868347492')[1]
