@@ -75,7 +75,7 @@ function library.create()
             arguments.section = arguments.section or 'left'
             arguments.callback = arguments.callback or function() end
 
-            library.flags[arguments.name] = arguments.checkbox
+            library.flags[arguments.flag] = arguments.checkbox
 
             local toggle = game:GetObjects('rbxassetid://15868949832')[1]
             toggle.name.Text = arguments.name
@@ -105,7 +105,7 @@ function library.create()
             arguments.flag = arguments.flag or arguments.name
             arguments.callback = arguments.callback or function() end
 
-            library.flags[arguments.name] = arguments.value
+            library.flags[arguments.flag] = arguments.value
 
             local slider = game:GetObjects('rbxassetid://15869121143')[1]
             slider.name.Text = arguments.name
