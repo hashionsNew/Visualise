@@ -58,7 +58,7 @@ function library.create()
 
         local functions_module = {}
         
-        function functions_module.create_label(arguments)
+        function functions_module.create_label(arguments) -- name: string
             arguments.name = arguments.name or 'Label'
             arguments.section = arguments.section or 'left'
 
@@ -110,7 +110,7 @@ function library.create()
                 local slider_size = slider.box.hitbox.AbsoluteSize.X
                 local slider_position = slider.box.hitbox.AbsolutePosition.X
                 local percent = math.clamp((mouse_position - slider_position), 0, 180)
-                slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
+                slider.box.inner.Size = UDim2.new(percent / 200, 0, 1, 0)
 
                 local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                 local a = math.floor(return_value)
@@ -124,7 +124,7 @@ function library.create()
                     local slider_size = slider.box.hitbox.AbsoluteSize.X
                     local slider_position = slider.box.hitbox.AbsolutePosition.X
                     local percent = math.clamp((mouse_position - slider_position), 0, 180)
-                    slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
+                    slider.box.inner.Size = UDim2.new(percent / 200, 0, 1, 0)
     
                     local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                     local a = math.floor(return_value)
