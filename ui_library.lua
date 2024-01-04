@@ -67,7 +67,7 @@ function library.create()
             label.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
         end
 
-        function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback
+        function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback: function
             arguments.name = arguments.name or 'Toggle'
             arguments.checkbox = arguments.checkbox or false
             arguments.flag = arguments.flag or name
@@ -92,11 +92,13 @@ function library.create()
             end)
         end
 
-        function functions_module.create_slider(arguments)
+        function functions_module.create_slider(arguments) -- name: string, section: string, maximum: number, minimum: number, value: number, flag: string, callback: function
             arguments.name = arguments.name or 'Slider'
+            arguments.section = arguments.section or 'left'
             arguments.maximum = arguments.maximum or 10
             arguments.minimum = arguments.minimum or 1
             arguments.value = arguments.value or arguments.maximum / 2
+            arguments.flag = arguments.flag or arguments.name
             arguments.callback = arguments.callback or function() end
 
             local slider = game:GetObjects('rbxassetid://15869121143')[1]
