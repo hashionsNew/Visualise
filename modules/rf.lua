@@ -9,6 +9,18 @@ local modules = {
     blade_ball = loadstring(game:HttpGet('https://raw.githubusercontent.com/hashionsNew/Visualise/main/modules/blade_ball_module.lua'))()
 }
 
+local assets = {
+    atmosphere = Instance.new('Atmosphere', Lighting),
+    ambient = game:GetObjects('rbxassetid://15870529331')[1]
+}
+
+assets.atmosphere.Color = Color3.fromRGB(75, 80, 106)
+assets.atmosphere.Decay = Color3.fromRGB(106, 112, 125)
+assets.atmosphere.Haze = 0
+
+assets.ambient.Parent = ReplicatedStorage
+assets.ambient.Position = Vector3.new(0, 10000, 0)
+
 local parried = false
 
 local ui_library = loadstring(game:HttpGet('https://raw.githubusercontent.com/hashionsNew/Visualise/main/ui_library.lua'))()
@@ -38,6 +50,37 @@ end})
 
 local world_time_value_slider = world_tab.create_slider({name = 'Time', flag = 'world_time_value', maximum = 12, minimum = 0, value = 0, section = 'left', callback = function(state: number)
     TweenService:Create(Lighting, TweenInfo.new(0.5), {ClockTime = state}):Play()
+end})
+
+world_tab.create_label({name = 'Ambient'})
+
+local ambient_toggle = world_tab.create_toggle({name = 'Enabled', flag = 'ambient', checkbox = false, section = 'left', callback = function(state: boolean)
+    if not state then
+        assets.ambient.Parent = ReplicatedStorage
+        TweenService:Create(assets.atmosphere, TweenInfo.new(0.5), {Haze = 0}):Play()
+        
+        return
+    end
+
+    assets.ambient.Parent = workspace
+    TweenService:Create(assets.atmosphere, TweenInfo.new(0.5), {Haze = 10}):Play()
+
+    runservice_ambient_loop = RunService.RenderStepped:Connect(function()
+        if not ui_library.flags['ambient'] then
+            runservice_atmosphere_loop:Disconnect()
+            runservice_atmosphere_loop = nil
+        end
+
+        if not modules.main.alive(LocalPlayer) then
+            return
+        end
+
+        assets.ambient.Position = LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 60, 0)
+    end)
+end})
+
+local atmosphere_slider = world_tab.create_slider({name = 'Atmosphere', flag = 'atmosphere', maximum = 1, minimum = 0, value = 0.6, section = 'left', callback = function(state: number)
+    TweenService:Create(assets.atmosphere, TweenInfo.new(0.5), {Density = state}):Play()
 end})
 
 
