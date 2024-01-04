@@ -28,7 +28,7 @@ local runservice_loop = RunService.Heartbeat:Connect(function()
 
     local ball = modules.blade_ball.get_ball()
 
-    if not ball or ball.target ~= LocalPlayer then
+    if not ball or ball:GetAttribute('target') ~= LocalPlayer then
         return
     end
 
