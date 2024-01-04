@@ -125,35 +125,33 @@ function library.create()
                 local mouse_position = UserInputService:GetMouseLocation().X
                 local slider_size = slider.box.hitbox.AbsoluteSize.X
                 local slider_position = slider.box.hitbox.AbsolutePosition.X
-                local percent = math.clamp((mouse_position - slider_position) / 90, 0, 1)
-                
+                local percent = math.clamp((mouse_position - slider_position) / slider_size, 0, 1)
+            
+                local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
+                local rounded_value = math.floor(return_value)
+                local c = string.len(tostring(rounded_value)) + 2
+
                 slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-
-                local return_value = (((arguments.maximum - arguments.minimum) / 90) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
-                local a = math.floor(return_value)
-                local c = string.len(a) + 2
-
-                slider.amout.Text = tostring(string.sub(return_value, 1, c))
-                library.flags[arguments.flag] = arguments.value
-
-                arguments.callback(tonumber(string.sub(return_value, 1, c)))
+                slider.amount.Text = tostring(rounded_value)
+            
+                library.flags[arguments.flag] = rounded_value
+                arguments.callback(rounded_value)
 
                 connection_start = mouse.Move:Connect(function()
                     local mouse_position = UserInputService:GetMouseLocation().X
                     local slider_size = slider.box.hitbox.AbsoluteSize.X
                     local slider_position = slider.box.hitbox.AbsolutePosition.X
-                    local percent = math.clamp((mouse_position - slider_position) / 90, 0, 1)
-                    
+                    local percent = math.clamp((mouse_position - slider_position) / slider_size, 0, 1)
+                
+                    local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
+                    local rounded_value = math.floor(return_value)
+                    local c = string.len(tostring(rounded_value)) + 2
+    
                     slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-    
-                    local return_value = (((arguments.maximum - arguments.minimum) / 90) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
-                    local a = math.floor(return_value)
-                    local c = string.len(a) + 2
-    
-                    slider.amout.Text = tostring(string.sub(return_value, 1, c))
-                    library.flags[arguments.flag] = arguments.value
-    
-                    arguments.callback(tonumber(string.sub(return_value, 1, c)))
+                    slider.amount.Text = tostring(rounded_value)
+                
+                    library.flags[arguments.flag] = rounded_value
+                    arguments.callback(rounded_value)
                 end)
 
                 connection_end = UserInputService.InputEnded:Connect(function(input: InputObject)
