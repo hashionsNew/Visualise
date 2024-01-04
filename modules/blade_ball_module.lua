@@ -3,7 +3,7 @@ local ReplicatedStorage = game:GetService('ReplicatedStorage')
 
 local blade_ball_module = {}
 
-local net = ReplicatedStorage.Packages._Index.['sleitnick_net@0.1.0'].net
+local net = ReplicatedStorage.Packages._Index['sleitnick_net@0.1.0'].net
 
 local parry_attempt = ReplicatedStorage.Remotes.ParryAttempt
 local parry_button_press = ReplicatedStorage.Remotes.ParryButtonPress
