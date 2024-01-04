@@ -27,7 +27,7 @@ RunService.Heartbeat:Connect(function()
 
     local ping = modules.main.ping() / 90
     local player_hitbox = 6
-    local accuracy = player_hitbox + ball.Velocity.Magnitude / 3 + ping
+    local accuracy = player_hitbox + ball.Velocity.Magnitude / 2.5 + ping
     local distance = LocalPlayer:DistanceFromCharacter(ball.Position)
 
     debug_circle.Position = LocalPlayer.Character.HumanoidRootPart.Position
@@ -38,6 +38,8 @@ RunService.Heartbeat:Connect(function()
     end
 
     if distance <= accuracy and ball:GetAttribute('target') == LocalPlayer then
+        print('hit')
+
         modules.blade_ball.parry(nil, false)
         parried = true
     
@@ -53,6 +55,8 @@ RunService.Heartbeat:Connect(function()
             until last_parry >= 2 or not parried
     
             parried = false
+
+            print('parried')
         end)
     end
 end)
