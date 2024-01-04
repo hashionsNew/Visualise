@@ -18,7 +18,7 @@ debug_circle.Name = 'debug_circle'
 local parried = false
 
 
-RunService.Heartbeat:Connect(function()
+local runservice_loop = RunService.Heartbeat:Connect(function()
     if not modules.main.alive(LocalPlayer) then
         runservice_loop:Disconnect()
         runservice_loop = nil
