@@ -59,7 +59,7 @@ function library.create()
             arguments.callback = arguments.callback or function() end
 
             local toggle = game:GetObjects('15868416245')[1]
-            toggle.name = arguments.name
+            toggle.name.Text = arguments.name
             toggle.box.BackgroundTransparency = checkbox and 0 or 1
             toggle.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
             
