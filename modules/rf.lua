@@ -37,9 +37,7 @@ RunService.Heartbeat:Connect(function()
         return
     end
 
-    if distance <= accuracy and ball:GetAttribute('target') == LocalPlayer then
-        print('hit')
-
+    if distance <= accuracy and ball:GetAttribute('target') == LocalPlayer.Name then
         modules.blade_ball.parry(nil, false)
         parried = true
     
@@ -52,11 +50,9 @@ RunService.Heartbeat:Connect(function()
         task.spawn(function()
             repeat
                 RunService.Heartbeat:Wait()
-            until last_parry >= 2 or not parried
+            until (tick() - last_parry) >= 2 or not parried
     
             parried = false
-
-            print('parried')
         end)
     end
 end)
