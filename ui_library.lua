@@ -6,6 +6,7 @@ local library = {}
 
 function library.create()
     local main = game:GetObjects('15868241556')[1]
+    print(main)
     main.Parent = CoreGui
 
     local sections_folder = Instance.new('Folder', main.container)
