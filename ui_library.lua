@@ -125,7 +125,7 @@ function library.create()
                 local mouse_position = UserInputService:GetMouseLocation().X
                 local slider_size = slider.box.hitbox.AbsoluteSize.X
                 local slider_position = slider.box.hitbox.AbsolutePosition.X
-                local percent = math.clamp((mouse_position - slider_position) / 180, 0, 1)
+                local percent = math.clamp((mouse_position - slider_position) / 90, 0, 1)
                 
                 slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
 
@@ -142,7 +142,7 @@ function library.create()
                     local mouse_position = UserInputService:GetMouseLocation().X
                     local slider_size = slider.box.hitbox.AbsoluteSize.X
                     local slider_position = slider.box.hitbox.AbsolutePosition.X
-                    local percent = math.clamp((mouse_position - slider_position) / 180, 0, 1)
+                    local percent = math.clamp((mouse_position - slider_position) / 90, 0, 1)
                     
                     slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
     
