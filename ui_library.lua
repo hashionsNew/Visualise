@@ -13,7 +13,7 @@ function library.create()
 
     local tab_module = {}
 
-    function tab_module.create_tab(name: string)
+    function tab_module.create_tab({name: string})
         name = name or 'Tab'
 
         local tab = game:GetObjects('rbxassetid://15868301328')[1]
@@ -51,7 +51,7 @@ function library.create()
 
         local functions_module = {}
 
-        function functions_module.create_toggle(name: string, checkbox: boolean, flag: string, section: string, callback)
+        function functions_module.create_toggle({name: string, checkbox: boolean, flag: string, section: string, callback})
             name = name or 'Toggle'
             checkbox = checkbox or false
             flag = flag or name
