@@ -52,7 +52,7 @@ function library.create()
         local functions_module = {}
 
         function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback
-            arguments.name = arguments.name or 'Toggle'
+            arguments.name = 'Toggle'
             arguments.checkbox = arguments.checkbox or false
             arguments.flag = arguments.flag or name
             arguments.section = arguments.section or 'left'
