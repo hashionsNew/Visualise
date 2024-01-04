@@ -84,7 +84,7 @@ function library.create()
             
             toggle.MouseButton1Click:Connect(function()
                 arguments.checkbox = not arguments.checkbox
-                library.flags[arguments.name] = arguments.checkbox
+                library.flags[arguments.flag] = arguments.checkbox
 
                 if arguments.checkbox then
                     TweenService:Create(toggle.box, TweenInfo.new(0.4), {BackgroundTransparency = 0}):Play()
@@ -124,7 +124,7 @@ function library.create()
                 local c = string.len(a) + 2
 
                 slider.amout.Text = tostring(string.sub(return_value, 1, c))
-                library.flags[arguments.name] = arguments.value
+                library.flags[arguments.flag] = arguments.value
 
                 arguments.callback(tonumber(string.sub(return_value, 1, c)))
 
@@ -141,7 +141,7 @@ function library.create()
                     local c = string.len(a) + 2
     
                     slider.amout.Text = tostring(string.sub(return_value, 1, c))
-                    library.flags[arguments.name] = arguments.value
+                    library.flags[arguments.flag] = arguments.value
     
                     arguments.callback(tonumber(string.sub(return_value, 1, c)))
                 end)
