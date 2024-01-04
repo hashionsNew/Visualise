@@ -119,6 +119,7 @@ function library.create()
 
             local slider = game:GetObjects('rbxassetid://15869121143')[1]
             slider.name.Text = arguments.name
+            slider.amout.Text = arguments.value
             slider.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
 
             slider.box.hitbox.MouseButton1Click:Connect(function()
@@ -132,7 +133,7 @@ function library.create()
                 local double_value = string.len(tostring(rounded_value)) + 2
 
                 slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-                slider.amount.Text = rounded_value
+                slider.amout.Text = rounded_value
             
                 library.flags[arguments.flag] = double_value
                 arguments.callback(double_value)
@@ -148,7 +149,7 @@ function library.create()
                     local double_value = string.len(tostring(rounded_value)) + 2
     
                     slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-                    slider.amount.Text = rounded_value
+                    slider.amout.Text = rounded_value
                 
                     library.flags[arguments.flag] = double_value
                     arguments.callback(double_value)
