@@ -127,9 +127,9 @@ function library.create()
                 local slider_position = slider.box.hitbox.AbsolutePosition.X
                 local percent = math.clamp((mouse_position - slider_position), 0, 180)
                 
-                slider.box.inner.Size = UDim2.new(percent / 180, 0, 1, 0)
+                slider.box.inner.Size = UDim2.new(percent / 100, 0, 1, 0)
 
-                local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
+                local return_value = (((arguments.maximum - arguments.minimum) / 100) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                 local a = math.floor(return_value)
                 local c = string.len(a) + 2
 
@@ -144,9 +144,9 @@ function library.create()
                     local slider_position = slider.box.hitbox.AbsolutePosition.X
                     local percent = math.clamp((mouse_position - slider_position), 0, 180)
                     
-                    slider.box.inner.Size = UDim2.new(percent / 180, 0, 1, 0)
+                    slider.box.inner.Size = UDim2.new(percent / 100, 0, 1, 0)
     
-                    local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
+                    local return_value = (((arguments.maximum - arguments.minimum) / 100) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                     local a = math.floor(return_value)
                     local c = string.len(a) + 2
     
