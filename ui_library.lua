@@ -129,13 +129,13 @@ function library.create()
             
                 local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
                 local rounded_value = math.floor(return_value)
-                local c = string.len(tostring(rounded_value)) + 2
+                local double_value = string.len(tostring(rounded_value)) + 2
 
                 slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-                slider.amount.Text = tostring(rounded_value)
+                slider.amount.Text = rounded_value
             
-                library.flags[arguments.flag] = rounded_value
-                arguments.callback(rounded_value)
+                library.flags[arguments.flag] = double_value
+                arguments.callback(double_value)
 
                 connection_start = mouse.Move:Connect(function()
                     local mouse_position = UserInputService:GetMouseLocation().X
@@ -145,13 +145,13 @@ function library.create()
                 
                     local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
                     local rounded_value = math.floor(return_value)
-                    local c = string.len(tostring(rounded_value)) + 2
+                    local double_value = string.len(tostring(rounded_value)) + 2
     
                     slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
-                    slider.amount.Text = tostring(rounded_value)
+                    slider.amount.Text = rounded_value
                 
-                    library.flags[arguments.flag] = rounded_value
-                    arguments.callback(rounded_value)
+                    library.flags[arguments.flag] = double_value
+                    arguments.callback(double_value)
                 end)
 
                 connection_end = UserInputService.InputEnded:Connect(function(input: InputObject)
