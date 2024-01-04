@@ -19,7 +19,7 @@ combat_tab.create_label({name = 'AutoParry'})
 local auto_parry_toggle = combat_tab.create_toggle({name = 'Enabled', checkbox = false, flag = 'auto_parry', section = 'left', callback = function(state: boolean)
 end})
 
-local slider = combat_tab.create_slider({name = 'Accuracy', section = 'left', maximum = 100, minimum = 1, value = 80, callback = function(state: boolean)
+local slider = combat_tab.create_slider({name = 'Accuracy', section = 'left', maximum = 100, minimum = 1, value = 80, flag = 'accuracy', callback = function(state: boolean)
 end})
 
 
