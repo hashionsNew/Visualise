@@ -18,17 +18,6 @@ debug_circle.Name = 'debug_circle'
 local parried = false
 
 
-function get_ball()
-    for _, v in workspace.Balls:GetChildren() do
-        v.Name = 'test'
-
-        if v:GetAttribute('realBall') then
-            return v
-        end
-    end
-end
-
-
 RunService.Heartbeat:Connect(function()
     if not modules.main.alive(LocalPlayer) then
         runservice_loop:Disconnect()
@@ -37,15 +26,15 @@ RunService.Heartbeat:Connect(function()
         debug_circle:Destroy()
     end
 
-    local ball = get_ball()
+    local ball = modules.blade_ball.get_ball()
 
     if not ball then
         return
     end
 
-    local ping = modules.main.ping() / 100
+    local ping = modules.main.ping() / 90
     local player_hitbox = 6
-    local accuracy = player_hitbox + ball.Velocity.Magnitude / 3.5 + ping
+    local accuracy = player_hitbox + ball.Velocity.Magnitude / 3 + ping
     local distance = LocalPlayer:DistanceFromCharacter(ball.Position)
 
     debug_circle.Position = LocalPlayer.Character.HumanoidRootPart.Position
@@ -67,7 +56,7 @@ RunService.Heartbeat:Connect(function()
     
         task.spawn(function()
             repeat
-                rs.Heartbeat:Wait()
+                RunService.Heartbeat:Wait()
             until last_parry >= 2 or not parried
     
             parried = false
