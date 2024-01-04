@@ -21,7 +21,17 @@ end
 
 function blade_ball_module.parry(direction: Raycast, external: boolean)
     if external then
-
+        parry_attempt:FireServer(unpack({
+            [1] = 0.5,
+            [2] = CFrame.new(Vector3.zero, Vector3.zero),
+            [3] = {
+                ["Player_0"] = Vector3.zero
+            },
+            [4] = {
+                [1] = 0,
+                [2] = 0
+            }
+        }))
     else
         parry_button_press:Fire()
     end
