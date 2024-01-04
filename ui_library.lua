@@ -1,5 +1,9 @@
+local LocalPlayer = game:GetService('Players').LocalPlayer
 local CoreGui = game:GetService('CoreGui')
 local TweenService = game:GetService('TweenService')
+local UserInputService = game:GetService('UserInputService')
+
+local mouse = LocalPlayer:GetMouse()
 
 local library = {}
 
@@ -21,12 +25,15 @@ function library.create()
         tab.Parent = main.container.hold.tabs
 
         local left_section = game:GetObjects('rbxassetid://15868347492')[1]
+        left_section.Visible = false
         left_section.Parent = sections_folder
 
         local middle_section = game:GetObjects('rbxassetid://15868353701')[1]
+        middle_section.Visible = false
         middle_section.Parent = sections_folder
 
         local right_section = game:GetObjects('rbxassetid://15868355337')[1]
+        right_section.Visible = false
         right_section.Parent = sections_folder
 
         tab.MouseButton1Click:Connect(function()
@@ -50,6 +57,15 @@ function library.create()
         end)
 
         local functions_module = {}
+        
+        function functions_module.create_label(arguments)
+            arguments.name = arguments.name or 'Label'
+            arguments.section = arguments.section or 'left'
+
+            local label = game:GetObjects('rbxassetid://15869093874')[1]
+            label.Text = arguments.name
+            label.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
+        end
 
         function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback
             arguments.name = arguments.name or 'Toggle'
@@ -72,7 +88,56 @@ function library.create()
                     TweenService:Create(toggle.box, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
                 end
 
-                callback(checkbox)
+                arguments.callback(checkbox)
+            end)
+        end
+
+        function functions_module.create_slider(arguments)
+            arguments.name = arguments.name or 'Slider'
+            arguments.maximum = arguments.maximum or 10
+            arguments.minimum = arguments.minimum or 1
+            arguments.value = arguments.value or arguments.maximum / 2
+            arguments.callback = arguments.callback or function() end
+
+            local slider = game:GetObjects('rbxassetid://15869121143')[1]
+            slider.name.Text = arguments.name
+            slider.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
+
+            slider.box.hitbox.MouseButton1Click:Connect(function()
+                local mouse_position = UserInputService:GetMouseLocation().X
+                local slider_size = slider.box.hitbox.AbsoluteSize.X
+                local slider_position = slider.box.hitbox.AbsolutePosition.X
+                local percent = math.clamp((mouse_position - slider_position), 0, 0.9)
+                slider.box.inner.Size = UDim2.new(percent, 0, 0.158, 0)
+
+                local return_value = (((args.max - args.min) / 0.9) * slider.box.inner.AbsoluteSize.X) + args.min
+                local a = math.floor(return_value)
+                local c = string.len(a) + 2
+                slider.amout.Text = tostring(string.sub(return_value, 1, c))
+
+                arguments.callback(tonumber(string.sub(return_value, 1, c)))
+
+                connection_start = mouse.Move:Connect(function()
+                    local mouse_position = UserInputService:GetMouseLocation().X
+                    local slider_size = slider.box.hitbox.AbsoluteSize.X
+                    local slider_position = slider.box.hitbox.AbsolutePosition.X
+                    local percent = math.clamp((mouse_position - slider_position), 0, 0.9)
+                    slider.box.inner.Size = UDim2.new(percent, 0, 0.158, 0)
+    
+                    local return_value = (((args.max - args.min) / 0.9) * slider.box.inner.AbsoluteSize.X) + args.min
+                    local a = math.floor(return_value)
+                    local c = string.len(a) + 2
+                    slider.amout.Text = tostring(string.sub(return_value, 1, c))
+    
+                    arguments.callback(tonumber(string.sub(return_value, 1, c)))
+                end)
+
+                connection_end = UserInputService.InputEnded:Connect(function(input: InputObject)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        connection_start:Disconnect()
+                        connection_end:Disconnect()
+                    end
+                end)
             end)
         end
 
