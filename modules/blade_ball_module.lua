@@ -12,7 +12,7 @@ local ability_button_press = ReplicatedStorage.Remotes.AbilityButtonPress
 
 function blade_ball_module.get_ball(real_ball: boolean)
     for _, v in workspace.Balls:GetChildren() do
-        if v:GetAttribute('realBall') == realBall then
+        if v:GetAttribute('realBall') == real_ball then
             return v
         end
     end
