@@ -5,7 +5,7 @@ local library = {}
 
 
 function library.create()
-    local main = game:GetObjects('rbxassetsid://15868241556')[1]
+    local main = game:GetObjects('rbxassetid://15868241556')[1]
     main.Parent = CoreGui
 
     local sections_folder = Instance.new('Folder', main.container)
@@ -16,17 +16,17 @@ function library.create()
     function tab_module.create_tab(name: string)
         name = name or 'Tab'
 
-        local tab = game:GetObjects('rbxassetsid://15868301328')[1]
+        local tab = game:GetObjects('rbxassetid://15868301328')[1]
         tab.name.TextLabel = name
         tab.Parent = main.container.hold.tabs
 
-        local left_section = game:GetObjects('rbxassetsid://15868347492')[1]
+        local left_section = game:GetObjects('rbxassetid://15868347492')[1]
         left_section.Parent = sections_folder
 
-        local middle_section = game:GetObjects('rbxassetsid://15868353701')[1]
+        local middle_section = game:GetObjects('rbxassetid://15868353701')[1]
         middle_section.Parent = sections_folder
 
-        local right_section = game:GetObjects('rbxassetsid://15868355337')[1]
+        local right_section = game:GetObjects('rbxassetid://15868355337')[1]
         right_section.Parent = sections_folder
 
         tab.MouseButton1Click:Connect(function()
