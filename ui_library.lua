@@ -13,6 +13,16 @@ function library.create()
     local main = game:GetObjects('rbxassetid://15868241556')[1]
     main.Parent = CoreGui
 
+    UserInputService.InputBegin:Connect(function(input: InputObject, process: boolean)
+        if process then
+            return
+        end
+
+        if input.KeyCode == Enum.KeyCode.J then
+            main.Enabled = not main.Enabled
+        end
+    end)
+
     local sections_folder = Instance.new('Folder', main.container)
     sections_folder.Name = 'sections_folder'
 
