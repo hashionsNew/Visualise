@@ -1,6 +1,7 @@
 local LocalPlayer = game:GetService('Players').LocalPlayer
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
 local RunService = game:GetService('RunService')
+local Lighting = game:GetService('Lighting')
 
 local modules = {
     main = loadstring(game:HttpGet('https://raw.githubusercontent.com/hashionsNew/Visualise/main/modules/main.lua'))(),
@@ -16,10 +17,30 @@ local combat_tab = main.create_tab({name = 'Combat'})
 
 combat_tab.create_label({name = 'AutoParry'})
 
-local auto_parry_toggle = combat_tab.create_toggle({name = 'Enabled', checkbox = false, flag = 'auto_parry', section = 'left', callback = function(state: boolean)
-    for _, v in ui_library.flags do
-        print(v)
+local auto_parry_toggle = combat_tab.create_toggle({name = 'Enabled', flag = 'auto_parry', checkbox = false, section = 'left', callback = function(state: boolean)
+end})
+
+local auto_parry_accuracy_slider = combat_tab.create_slider({name = 'Accuracy', flag = 'auto_parry_accuracy', maximum = 100, minimum = 1, value = 100, section = 'left', callback = function(state: boolean)
+end})
+
+local world_tab = main.create_tab({name = 'World'})
+
+world_tab.create_label({name = 'WorldTime'})
+
+local world_time_toggle = world_tab.create_toggle({name = 'Enabled', flag = 'world_time', checkbox = false, section = 'left', callback = function(state: boolean)
+    local tween_time = 0.5 + (0.5 / (Lighting.ClockTime - state))
+
+    if state then
+        TweenService:Create(Lighting, TweenInfo.new(tween_time), {ClockTime = ui_library.flags['world_time_value']})
+    else
+        TweenService:Create(Lighting, TweenInfo.new(tween_time), {ClockTime = 7})
     end
+end})
+
+local world_time_value_slider = world_tab.create_slider({name = 'Time', flag = 'world_time_value', maximum = 12, minimum = 0, value = 0, section = 'left', callback = function(state: boolean)
+    local tween_time = 0.5 + (0.5 / (Lighting.ClockTime - state))
+    
+    TweenService:Create(Lighting, TweenInfo.new(tween_time), {ClockTime = state})
 end})
 
 
@@ -29,8 +50,6 @@ RunService.Heartbeat:Connect(function()
     end
 
     if not modules.main.alive(LocalPlayer) then
-        print('player is not alive')
-
         return
     end
 
