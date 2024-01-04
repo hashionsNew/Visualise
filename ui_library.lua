@@ -52,13 +52,13 @@ function library.create()
         local functions_module = {}
 
         function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback
-            arguments.name = 'Toggle'
+            arguments.name = arguments.name or 'Toggle'
             arguments.checkbox = arguments.checkbox or false
             arguments.flag = arguments.flag or name
             arguments.section = arguments.section or 'left'
             arguments.callback = arguments.callback or function() end
 
-            local toggle = game:GetObjects('15868949832')[1]
+            local toggle = game:GetObjects('rbxassetid://15868949832')[1]
             toggle.name.Text = arguments.name
             toggle.box.BackgroundTransparency = checkbox and 0 or 1
             toggle.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
