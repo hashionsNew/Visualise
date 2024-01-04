@@ -132,7 +132,7 @@ function library.create()
                 local rounded_value = math.floor(return_value)
                 local double_value = string.len(tostring(rounded_value)) + 2
 
-                slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
+                TweenService:Create(slider.box.inner, TweenInfo.new(0.5), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
                 slider.amout.Text = rounded_value
             
                 library.flags[arguments.flag] = double_value
@@ -148,7 +148,7 @@ function library.create()
                     local rounded_value = math.floor(return_value)
                     local double_value = string.len(tostring(rounded_value)) + 2
     
-                    slider.box.inner.Size = UDim2.new(percent, 0, 1, 0)
+                    TweenService:Create(slider.box.inner, TweenInfo.new(0.5), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
                     slider.amout.Text = rounded_value
                 
                     library.flags[arguments.flag] = double_value
