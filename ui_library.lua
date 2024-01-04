@@ -6,6 +6,7 @@ local UserInputService = game:GetService('UserInputService')
 local mouse = LocalPlayer:GetMouse()
 
 local library = {}
+library.flags = {}
 
 
 function library.create()
@@ -74,21 +75,24 @@ function library.create()
             arguments.section = arguments.section or 'left'
             arguments.callback = arguments.callback or function() end
 
+            library.flags[arguments.name] = arguments.checkbox
+
             local toggle = game:GetObjects('rbxassetid://15868949832')[1]
             toggle.name.Text = arguments.name
             toggle.box.BackgroundTransparency = checkbox and 0 or 1
             toggle.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
             
             toggle.MouseButton1Click:Connect(function()
-                checkbox = not checkbox
+                arguments.checkbox = not arguments.checkbox
+                library.flags[arguments.name] = arguments.checkbox
 
-                if checkbox then
+                if arguments.checkbox then
                     TweenService:Create(toggle.box, TweenInfo.new(0.4), {BackgroundTransparency = 0}):Play()
                 else
                     TweenService:Create(toggle.box, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
                 end
 
-                arguments.callback(checkbox)
+                arguments.callback(arguments.checkbox)
             end)
         end
 
@@ -101,6 +105,8 @@ function library.create()
             arguments.flag = arguments.flag or arguments.name
             arguments.callback = arguments.callback or function() end
 
+            library.flags[arguments.name] = arguments.value
+
             local slider = game:GetObjects('rbxassetid://15869121143')[1]
             slider.name.Text = arguments.name
             slider.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
@@ -110,12 +116,15 @@ function library.create()
                 local slider_size = slider.box.hitbox.AbsoluteSize.X
                 local slider_position = slider.box.hitbox.AbsolutePosition.X
                 local percent = math.clamp((mouse_position - slider_position), 0, 180)
-                slider.box.inner.Size = UDim2.new(percent / 200, 0, 1, 0)
+                
+                slider.box.inner.Size = UDim2.new(percent / 100, 0, 1, 0)
 
                 local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                 local a = math.floor(return_value)
                 local c = string.len(a) + 2
+
                 slider.amout.Text = tostring(string.sub(return_value, 1, c))
+                library.flags[arguments.name] = arguments.value
 
                 arguments.callback(tonumber(string.sub(return_value, 1, c)))
 
@@ -124,12 +133,15 @@ function library.create()
                     local slider_size = slider.box.hitbox.AbsoluteSize.X
                     local slider_position = slider.box.hitbox.AbsolutePosition.X
                     local percent = math.clamp((mouse_position - slider_position), 0, 180)
-                    slider.box.inner.Size = UDim2.new(percent / 200, 0, 1, 0)
+                    
+                    slider.box.inner.Size = UDim2.new(percent / 100, 0, 1, 0)
     
                     local return_value = (((arguments.maximum - arguments.minimum) / 180) * slider.box.inner.AbsoluteSize.X) + arguments.minimum
                     local a = math.floor(return_value)
                     local c = string.len(a) + 2
+    
                     slider.amout.Text = tostring(string.sub(return_value, 1, c))
+                    library.flags[arguments.name] = arguments.value
     
                     arguments.callback(tonumber(string.sub(return_value, 1, c)))
                 end)
