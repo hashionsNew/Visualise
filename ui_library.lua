@@ -13,7 +13,7 @@ function library.create()
     local main = game:GetObjects('rbxassetid://15868241556')[1]
     main.Parent = CoreGui
 
-    UserInputService.InputBegin:Connect(function(input: InputObject, process: boolean)
+    UserInputService.InputBegan:Connect(function(input: InputObject, process: boolean)
         if process then
             return
         end
