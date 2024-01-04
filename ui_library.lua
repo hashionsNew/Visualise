@@ -13,11 +13,11 @@ function library.create()
 
     local tab_module = {}
 
-    function tab_module.create_tab({name: string})
-        name = name or 'Tab'
+    function tab_module.create_tab(arguments) -- name: string
+        arguments.name = arguments.name or 'Tab'
 
         local tab = game:GetObjects('rbxassetid://15868301328')[1]
-        tab.name.Text = name
+        tab.name.Text = arguments.name
         tab.Parent = main.container.hold.tabs
 
         local left_section = game:GetObjects('rbxassetid://15868347492')[1]
@@ -51,17 +51,17 @@ function library.create()
 
         local functions_module = {}
 
-        function functions_module.create_toggle({name: string, checkbox: boolean, flag: string, section: string, callback})
-            name = name or 'Toggle'
-            checkbox = checkbox or false
-            flag = flag or name
-            section = section or 'left'
-            callback = callback or function() end
+        function functions_module.create_toggle(arguments) -- name: string, checkbox: boolean, flag: string, section: string, callback
+            arguments.name = arguments.name or 'Toggle'
+            arguments.checkbox = arguments.checkbox or false
+            arguments.flag = arguments.flag or name
+            arguments.section = arguments.section or 'left'
+            arguments.callback = arguments.callback or function() end
 
             local toggle = game:GetObjects('15868416245')[1]
-            toggle.name = name
+            toggle.name = arguments.name
             toggle.box.BackgroundTransparency = checkbox and 0 or 1
-            toggle.Parent = section == 'left' and left_section or section == 'middle' and middle_section or right_section
+            toggle.Parent = arguments.section == 'left' and left_section or arguments.section == 'middle' and middle_section or right_section
             
             toggle.MouseButton1Click:Connect(function()
                 checkbox = not checkbox
