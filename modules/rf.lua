@@ -17,8 +17,8 @@ local combat_tab = main.create_tab({name = 'Combat'})
 combat_tab.create_label({name = 'AutoParry'})
 
 local auto_parry_toggle = combat_tab.create_toggle({name = 'Enabled', checkbox = false, flag = 'auto_parry', section = 'left', callback = function(state: boolean)
-    if ui_library.flags['auto_parry'] then
-        print(ui_library.flags['auto_parry'])
+    for _, v in ui_library.flags do
+        print(v)
     end
 end})
 
