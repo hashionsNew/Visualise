@@ -318,10 +318,10 @@ task.spawn(function()
     LocalPlayer.Character.Humanoid.Jumping:Connect(function()
         print(2)
 
-        local jump_circle_clone = assets.jump_circle.orbs:Clone()
+        local jump_circle_clone = assets.jump_circle.orbs.Attachment:Clone()
         jump_circle_clone.Position = LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
         jump_circle_clone.Parent = workspace.Terrain
 
-        jump_circle_clone:Emit(50)
+        jump_circle_clone.ParticleEmitter:Emit(50)
     end)
 end)
