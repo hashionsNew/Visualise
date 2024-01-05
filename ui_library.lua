@@ -129,11 +129,11 @@ function library.create()
                 local percent = math.clamp((mouse_position - slider_position) / slider_size, 0, 1)
             
                 local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
-                local rounded_value = math.floor(return_value)
+                local rounded_value = return_value
                 local double_value = string.len(tostring(rounded_value)) + 2
 
                 TweenService:Create(slider.box.inner, TweenInfo.new(0.5), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
-                slider.amout.Text = rounded_value
+                slider.amout.Text = double_value
             
                 library.flags[arguments.flag] = double_value
                 arguments.callback(double_value)
@@ -145,11 +145,11 @@ function library.create()
                     local percent = math.clamp((mouse_position - slider_position) / slider_size, 0, 1)
                 
                     local return_value = (percent * (arguments.maximum - arguments.minimum)) + arguments.minimum
-                    local rounded_value = math.floor(return_value)
+                    local rounded_value = return_value
                     local double_value = string.len(tostring(rounded_value)) + 2
     
                     TweenService:Create(slider.box.inner, TweenInfo.new(0.5), {Size = UDim2.new(percent, 0, 1, 0)}):Play()
-                    slider.amout.Text = rounded_value
+                    slider.amout.Text = double_value
                 
                     library.flags[arguments.flag] = double_value
                     arguments.callback(double_value)
