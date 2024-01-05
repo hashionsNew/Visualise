@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService('ReplicatedStorage')
 local TweenService = game:GetService('TweenService')
 local RunService = game:GetService('RunService')
 local Lighting = game:GetService('Lighting')
+local Debris = game:GetService('Debris')
 
 local debris_folder = Instance.new('Folder', ReplicatedStorage)
 debris_folder.Name = 'debris_folder'
@@ -253,10 +254,10 @@ for _, v in game:GetService('Players'):GetPlayers() do
             return
         end
 
-        local kill_effect_clone = assets.kill_effects.cosmic_splash.main:Clone()
-        kill_effect_clone.Parent = v.Character.HumanoidRootPart
+        local kill_effect = assets.kill_effects.cosmic_splash.main:Clone()
+        kill_effect.Parent = v.Character.HumanoidRootPart
 
-        for _, particle in kill_effect_clone:GetChildren() do
+        for _, particle in kill_effect:GetChildren() do
             if particle:IsA('ParticleEmitter') then
                 particle:Emit(particle:GetAttribute('EmitCount'))
             end
@@ -280,10 +281,10 @@ game:GetService('Players').PlayerAdded:Connect(function(player: Player)
                 return
             end
 
-            local kill_effect_clone = assets.kill_effects.cosmic_splash.main:Clone()
-            kill_effect_clone.Parent = character.HumanoidRootPart
+            local kill_effect = assets.kill_effects.cosmic_splash.main:Clone()
+            kill_effect.Parent = character.HumanoidRootPart
     
-            for _, particle in kill_effect_clone:GetChildren() do
+            for _, particle in kill_effect:GetChildren() do
                 if particle:IsA('ParticleEmitter') then
                     particle:Emit(particle:GetAttribute('EmitCount'))
                 end
@@ -301,11 +302,12 @@ LocalPlayer.CharacterAdded:Connect(function(character: any)
     character.Humanoid.Jumping:Connect(function()
         print(1)
 
-        local jump_circle_clone = assets.jump_circle.orbs:Clone()
-        jump_circle_clone.Position = character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
-        jump_circle_clone.Parent = workspace.Terrain
+        local jump_circle = assets.jump_circle.orbs:Clone()
+        jump_circle.Position = character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
+        jump_circle.Parent = workspace.Terrain
+        jump_circle:Emit(50)
 
-        jump_circle_clone:Emit(50)
+        Debris:AddItem(jump_circle, 2)
     end)
 end)
 
@@ -318,10 +320,11 @@ task.spawn(function()
     LocalPlayer.Character.Humanoid.Jumping:Connect(function()
         print(2)
 
-        local jump_circle_clone = assets.jump_circle.orbs.Attachment:Clone()
-        jump_circle_clone.Position = LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
-        jump_circle_clone.Parent = workspace.Terrain
+        local jump_circle = assets.jump_circle.orbs.Attachment:Clone()
+        jump_circle.Position = LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
+        jump_circle.Parent = workspace.Terrain
+        jump_circle.ParticleEmitter:Emit(50)
 
-        jump_circle_clone.ParticleEmitter:Emit(50)
+        Debris:AddItem(jump_circle, 2)
     end)
 end)
