@@ -319,7 +319,7 @@ task.spawn(function()
         print(2)
 
         local jump_circle_clone = assets.jump_circle.orbs:Clone()
-        jump_circle_clone.Position = character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
+        jump_circle_clone.Position = LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
         jump_circle_clone.Parent = workspace.Terrain
 
         jump_circle_clone:Emit(50)
