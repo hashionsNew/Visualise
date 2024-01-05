@@ -25,7 +25,7 @@ local assets = {
     debug_sphere = game:GetObjects('rbxassetid://15873671236')[1],
     trail = game:GetObjects('rbxassetid://15878111905')[1],
     jump_circle = {
-        orbs = game:GetObjects('rbxassetid://15878148376')[1]
+        orbs = game:GetObjects('rbxassetid://15878422854')[1]
     }
 }
 
@@ -159,10 +159,11 @@ RunService.Heartbeat:Connect(function()
         return
     end
 
-    local ping = modules.main.ping() / 50
-    local player_hitbox = 6
-    local accuracy = player_hitbox + ball.Velocity.Magnitude / 3 + ping
+    local velocity = ball.zoomies.VectorVelocity
     local distance = LocalPlayer:DistanceFromCharacter(ball.Position)
+    local ping = modules.main.ping() / 50
+    local player_hitbox = 10
+    local accuracy = player_hitbox + velocity.Magnitude / 3.5 + ping
 
     --[[local sorted_players = {}
 
@@ -194,7 +195,7 @@ RunService.Heartbeat:Connect(function()
     end
 
     if distance <= accuracy and ball:GetAttribute('target') == LocalPlayer.Name then
-        modules.blade_ball.parry(nil, true)
+        modules.blade_ball.parry(nil, false)
         parried = true
     
         ball:GetAttributeChangedSignal('target'):Connect(function()
@@ -297,15 +298,13 @@ end)
 LocalPlayer.CharacterAdded:Connect(function(character: any)
     repeat
         task.wait()
-    until modules.main.alive(player) or character == nil
+    until modules.main.alive(LocalPlayer) or character == nil
 
     character.Humanoid.Jumping:Connect(function()
-        print(1)
-
-        local jump_circle = assets.jump_circle.orbs:Clone()
+        local jump_circle = assets.jump_circle.orbs.Attachment:Clone()
         jump_circle.Position = character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
         jump_circle.Parent = workspace.Terrain
-        jump_circle:Emit(50)
+        jump_circle.ParticleEmitter:Emit(50)
 
         Debris:AddItem(jump_circle, 2)
     end)
@@ -318,8 +317,6 @@ task.spawn(function()
     until modules.main.alive(LocalPlayer)
 
     LocalPlayer.Character.Humanoid.Jumping:Connect(function()
-        print(2)
-
         local jump_circle = assets.jump_circle.orbs.Attachment:Clone()
         jump_circle.Position = LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(0, 3, 0)
         jump_circle.Parent = workspace.Terrain
